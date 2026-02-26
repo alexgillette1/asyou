@@ -8,7 +8,7 @@ const MOCK_HOLDINGS = [
   { partnerId: 'lyft',    ticker: 'LYFT', shares: 0.7654, avgCost: 16.20, currentPrice: 17.44, totalEarned: 13.34 },
 ]
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const headers = cors()
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers }
 

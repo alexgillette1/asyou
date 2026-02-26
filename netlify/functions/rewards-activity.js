@@ -19,7 +19,7 @@ const MOCK_ACTIVITY = [
   { id: 7,  date: '2024-03-10', partnerId: 'lyft',    type: 'ride',    description: 'Lyft ride — Restaurant',     earned: 0.65, shares: 0.0373, ticker: 'LYFT' },
 ]
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const headers = cors()
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers }
 

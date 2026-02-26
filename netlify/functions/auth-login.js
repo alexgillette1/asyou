@@ -3,7 +3,7 @@
 // For MVP: accepts any well-formed email + password (no real DB check).
 // Production: replace with DB lookup + bcrypt.compare + real JWT.
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const headers = cors()
 
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers }

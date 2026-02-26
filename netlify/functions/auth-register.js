@@ -3,7 +3,7 @@
 // For MVP: stores in-memory / returns a mock JWT.
 // Production: replace with real DB (Supabase, Postgres) + bcrypt + real JWT.
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const headers = cors()
 
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers }

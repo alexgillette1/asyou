@@ -3,6 +3,10 @@
   publish = "dist"
   functions = "netlify/functions"
 
+[build.environment]
+  NPM_CONFIG_PRODUCTION = "false"
+  NODE_VERSION = "18"
+
 [dev]
   command = "npm run dev"
   port = 8888
@@ -18,5 +22,3 @@
   to = "/index.html"
   status = 200
 
-[context.production.environment]
-  NODE_ENV = "production"

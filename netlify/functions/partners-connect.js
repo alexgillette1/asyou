@@ -8,7 +8,7 @@
 //   Lyft:    https://developer.lyft.com/docs/authentication
 //   Snap:    https://developers.snap.com/api/lens-studio/lens-studio-reference/toolkit/classes/SnapKitOAuthManager
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const headers = cors()
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers }
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) }
