@@ -1,15 +1,25 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import { TrendingUp, ArrowRight, CheckCircle, Zap, Shield, BarChart3, Play } from 'lucide-react'
 
 const BRANDS = [
-  { name: 'Uber',     ticker: 'UBER', logo: '🚗' },
-  { name: 'Peloton',  ticker: 'PTON', logo: '🚴' },
-  { name: 'Lyft',     ticker: 'LYFT', logo: '🩷' },
-  { name: 'Snapchat', ticker: 'SNAP', logo: '👻' },
-  { name: 'Netflix',  ticker: 'NFLX', logo: '🎬' },
-  { name: 'Apple',    ticker: 'AAPL', logo: '🍎' },
+  { name: 'Uber',     ticker: 'UBER', domain: 'uber.com',         color: '#000000' },
+  { name: 'Peloton',  ticker: 'PTON', domain: 'onepeloton.com',   color: '#FC1849' },
+  { name: 'Lyft',     ticker: 'LYFT', domain: 'lyft.com',         color: '#FF00BF' },
+  { name: 'Snapchat', ticker: 'SNAP', domain: 'snap.com',         color: '#FFFC00' },
+  { name: 'Netflix',  ticker: 'NFLX', domain: 'netflix.com',      color: '#E50914' },
+  { name: 'Apple',    ticker: 'AAPL', domain: 'apple.com',        color: '#555555' },
 ]
+
+function LandingLogo({ brand, size = 7 }) {
+  const [err, setErr] = useState(false)
+  return err
+    ? <span className="text-lg font-bold" style={{ color: brand.color }}>{brand.name[0]}</span>
+    : <img src={`https://logo.clearbit.com/${brand.domain}`} alt={brand.name}
+           className={`w-${size} h-${size} object-contain rounded`}
+           onError={() => setErr(true)} loading="lazy" />
+}
 
 const HOW_STEPS = [
   { num: '01', title: 'Open your account',  body: 'Sign up for a self-directed brokerage account in under 2 minutes. No minimum balance required.', icon: '🏦' },
@@ -104,13 +114,15 @@ export default function Landing() {
             </div>
             <div className="space-y-2.5">
               {[
-                { name: 'Uber',    ticker: 'UBER', logo: '🚗', value: '$34.37', change: '+4.2%', positive: true },
-                { name: 'Lyft',    ticker: 'LYFT', logo: '🩷', value: '$13.34', change: '+7.7%', positive: true },
-                { name: 'Peloton', ticker: 'PTON', logo: '🚴', value: '$6.03',  change: '-4.5%', positive: false },
+                { name: 'Uber',    ticker: 'UBER', domain: 'uber.com',       color: '#000000', value: '$34.37', change: '+4.2%', positive: true },
+                { name: 'Lyft',    ticker: 'LYFT', domain: 'lyft.com',       color: '#FF00BF', value: '$13.34', change: '+7.7%', positive: true },
+                { name: 'Peloton', ticker: 'PTON', domain: 'onepeloton.com', color: '#FC1849', value: '$6.03',  change: '-4.5%', positive: false },
               ].map(h => (
                 <div key={h.ticker} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xl">{h.logo}</span>
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden" style={{ background: `${h.color}22` }}>
+                      <LandingLogo brand={h} size={5} />
+                    </div>
                     <div>
                       <p className="text-white text-sm font-semibold leading-tight">{h.name}</p>
                       <p className="text-slate-500 text-xs">${h.ticker}</p>
@@ -138,7 +150,9 @@ export default function Landing() {
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
             {BRANDS.map(b => (
               <div key={b.ticker} className="glass-card rounded-xl p-4 flex flex-col items-center gap-1.5 hover:border-white/15 transition-all duration-200 text-center">
-                <span className="text-2xl">{b.logo}</span>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden" style={{ background: `${b.color}22` }}>
+                  <LandingLogo brand={b} size={7} />
+                </div>
                 <span className="text-white text-xs font-semibold">{b.name}</span>
                 <span className="text-slate-500 text-xs">${b.ticker}</span>
               </div>

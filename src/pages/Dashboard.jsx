@@ -114,9 +114,11 @@ export default function Dashboard() {
                 return (
                   <div key={h.ticker} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden"
                            style={{ background: `${partner?.color || '#333'}20` }}>
-                        {partner?.logo || '📊'}
+                        {partner?.logo
+                          ? <img src={partner.logo} alt={partner?.name} className="w-6 h-6 object-contain" onError={e => { e.target.style.display='none' }} />
+                          : <span className="text-sm font-bold" style={{ color: partner?.color || '#888' }}>{h.ticker[0]}</span>}
                       </div>
                       <div>
                         <p className="text-white text-sm font-semibold">${h.ticker}</p>

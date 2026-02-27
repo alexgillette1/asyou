@@ -3,6 +3,23 @@ import { X, CheckCircle, Lock } from 'lucide-react'
 import { usePortfolio } from '../context/PortfolioContext.jsx'
 import { useToast } from './Toast.jsx'
 
+function ModalLogo({ partner }) {
+  const [err1, setErr1] = useState(false)
+  const [err2, setErr2] = useState(false)
+  return (
+    <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+         style={{ background: `${partner.color}25` }}>
+      {!err1 ? (
+        <img src={partner.logo} alt={partner.name} className="w-9 h-9 object-contain rounded" onError={() => setErr1(true)} />
+      ) : !err2 ? (
+        <img src={partner.logoFallback} alt={partner.name} className="w-9 h-9 object-contain rounded" onError={() => setErr2(true)} />
+      ) : (
+        <span className="text-2xl font-bold" style={{ color: partner.color }}>{partner.name[0]}</span>
+      )}
+    </div>
+  )
+}
+
 export default function ConnectModal({ partner, onClose }) {
   const { connectPartner } = usePortfolio()
   const { show }           = useToast()
@@ -31,8 +48,7 @@ export default function ConnectModal({ partner, onClose }) {
         {step === 'consent' && (
           <>
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
-                   style={{ background: `${partner.color}25` }}>{partner.logo}</div>
+              <ModalLogo partner={partner} />
               <div>
                 <h2 className="text-white text-xl font-bold">Connect {partner.name}</h2>
                 <p className="text-slate-400 text-sm">${partner.ticker} · {partner.category}</p>

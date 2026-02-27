@@ -87,9 +87,11 @@ export default function Portfolio() {
               <div key={h.ticker} className="grid grid-cols-2 sm:grid-cols-5 items-center px-6 py-4 border-b border-white/5 last:border-0 hover:bg-white/2 transition-colors">
                 {/* Asset */}
                 <div className="col-span-1 sm:col-span-2 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden"
                        style={{ background: `${partner?.color || '#333'}20` }}>
-                    {partner?.logo || '📊'}
+                    {partner?.logo
+                      ? <img src={partner.logo} alt={partner?.name} className="w-7 h-7 object-contain" onError={e => { e.target.style.display='none' }} />
+                      : <span className="text-sm font-bold" style={{ color: partner?.color || '#888' }}>{h.ticker[0]}</span>}
                   </div>
                   <div>
                     <p className="text-white font-semibold">{partner?.name}</p>

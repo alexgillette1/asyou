@@ -114,7 +114,11 @@ export default function Settings() {
                 return (
                   <div key={id} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">{partner.logo}</span>
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden"
+                           style={{ background: `${partner.color}20` }}>
+                        <img src={partner.logo} alt={partner.name} className="w-5 h-5 object-contain"
+                             onError={e => { e.target.style.display='none'; e.target.parentNode.innerHTML = `<span style="color:${partner.color};font-weight:700;font-size:14px">${partner.name[0]}</span>` }} />
+                      </div>
                       <div>
                         <p className="text-white text-sm font-medium">{partner.name}</p>
                         <p className="text-slate-500 text-xs">${partner.ticker} · {partner.rewardLabel}</p>
